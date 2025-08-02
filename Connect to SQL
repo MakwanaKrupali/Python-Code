@@ -1,0 +1,39 @@
+# DA Project
+# 1 connect to SQL Database
+# library = psycopg2
+from errno import EUSERS
+from unittest.mock import DEFAULT
+
+# 1 - import library
+import psycopg2
+from psycopg2 import Timestamp
+
+#database connection parameters
+conn = psycopg2.connect(
+    dbname = "friends_company",  #specifies the name of the database you wish to connect
+    user="postgres", #username used to authenticate
+    password="krupali",
+    host="localhost",
+    port="5432"   #Default PostgreSQL port
+)
+cur = conn.cursor()
+
+#SQL STATAEMENT TO CREATE TABLE
+create_table_sql = """
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(50),
+    password VARCHAR(50) NOT NULL,
+    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+"""
+# execute create table query
+cur.execute(create_table_sql)
+
+#commit table to database
+conn.commit()
+
+#close connection
+cur.close()
+conn.close()
