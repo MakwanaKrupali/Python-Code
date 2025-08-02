@@ -1,3 +1,17 @@
+# 1 - import library
+import psycopg2
+from psycopg2 import Timestamp
+
+#database connection parameters
+conn = psycopg2.connect(
+    dbname = "friends_company",  #specifies the name of the database you wish to connect
+    user="postgres", #username used to authenticate
+    password="krupali",
+    host="localhost",
+    port="5432"   #Default PostgreSQL port
+)
+cur = conn.cursor()
+
 #SQL STATEMENT TO CREATE TABLE
 create_table_sql = """
 CREATE TABLE IF NOT EXISTS users (
